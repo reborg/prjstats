@@ -3,4 +3,4 @@
 ./src
 ./classes
 ./resources
-./lib/dev/*
+./lib/*

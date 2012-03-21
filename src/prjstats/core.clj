@@ -7,7 +7,7 @@
 ;;; A simple handler to show send some response to the client.
 (defn index
   [req]
-  (response "Welcome, to PrjStats"))
+  (response "Welcome to PrjStats!!! Dude."))
  
 ;; Routes definition
 (def routes
@@ -15,5 +15,6 @@
     [""] index))
  
 ;;; start function for starting jetty
-(defn start [port]
-  (run-jetty #'routes {:port (or port 8080) :join? false}))
+;;; (.stop server) after starting
+(defn start [& port]
+  (defonce server (run-jetty #'routes {:port (or port 8888) :join? false})))
