@@ -1,0 +1,39 @@
+# (use 'clj-yaml.core)
+# (def yml (parse-string (slurp "./resources/fixtures.yml")))
+# (print yml)
+# (insert projects (values (:projects yml)))
+projects:
+    - id: 1
+      project_name:     "MPS"
+    - id: 2
+      project_name:     "Hydra"
+    - id: 3
+      project_name:     "MPS3"
+    - id: 4
+      project_name:     "PodcastMaker"
+ 
+metrics:
+    - metric_name: "Test coverage"
+      metric_value: 81
+      generated: 2012-03-21
+      project: 1
+    - metric_name: "Test coverage"
+      metric_value: 79
+      generated: 2012-02-21
+      project: 1
+    - metric_name: "Number of tests"
+      metric_value: 300
+      generated: 2012-03-20
+      project: 1
+    - metric_name: "Lines of code (LOC)"
+      metric_value: 34320
+      generated: 2012-03-20
+      project: 1
+    - metric_name: "Test coverage"
+      metric_value: 76
+      generated: 2012-02-21
+      project: 2
+    - metric_name: "Lines of code (LOC)"
+      metric_value: 45839
+      generated: 2012-02-20
+      project: 2

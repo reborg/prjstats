@@ -1,3 +1,7 @@
+;; How to use me?
+;; (use 'lobos.core 'lobos.connectivity 'lobos.migration 'lobos.migrations)
+;; (open-global prjstatsdb)
+;; (migrate)
 (ns lobos.migrations
 
   ;; exclude some clojure built-in symbols so we can use the lobos' symbols
