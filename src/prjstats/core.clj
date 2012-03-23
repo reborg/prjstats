@@ -1,6 +1,7 @@
 (ns prjstats.core
   (:use ring.adapter.jetty
         ring.middleware.resource
+        ring.middleware.file
         ring.util.response
         net.cgrand.moustache
         prjstats.controller))
@@ -8,6 +9,7 @@
 ;; Routes definition
 (def routes
   (app
+    (wrap-file "resources/public")
     [""] (delegate index)))
  
 ;;; start function for starting jetty
