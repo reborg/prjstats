@@ -15,3 +15,10 @@
 (deftemplate project-details "project.html" [project]
   [:title] (content "PrjStats - The metrics aggregator")
   [:div.project] (content (str "Metrics for " (project :project_name))))
+
+(deftemplate login-template "login.html" [& msg]
+  [:div#error] (if (nil? msg)
+                 (set-attr :style "display:none")
+                 (do->
+                   (remove-attr :style)
+                   (content msg))))

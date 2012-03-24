@@ -10,3 +10,11 @@
 (defn project "Show a single project details" [req project-id]
   (let [project-id-as-integer (Integer/parseInt project-id)]
     (response (project-details (first (select projects (where {:id project-id-as-integer})))))))
+
+(defn login "Handle login" [req]
+  (let [params (:params req)]
+    (if (empty? params)
+      (response (login-template))
+      (if (= (get params "username") (get params "password"))
+        (redirect "/admin")
+        (response (login-template "Invalid username or password"))))))
