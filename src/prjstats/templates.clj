@@ -7,7 +7,9 @@
 (deftemplate home-page "home.html" [projects]
   [:title] (content "PrjStats - The metrics aggregator")
   [:div.project] (clone-for [project projects]
-                            [:span.project_name] (content (:project_name project))
+                            [:a.project_name] (do-> 
+                                                (set-attr :href (str "/" (:id project))) 
+                                                (content (:project_name project)))
                             [:div.metrics_count] (content (:project_name project))))
 
 (deftemplate project-details "project.html" [project]
