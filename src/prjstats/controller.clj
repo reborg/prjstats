@@ -23,7 +23,7 @@
   (let [username (:username (:session req))]
     (if (nil? username)
       (redirect "/login")
-      (response "Admin page"))))
+      (response (admin-template)))))
 
 (defn logout "Handle logout request" [req]
   (assoc (redirect "/") :session nil))
