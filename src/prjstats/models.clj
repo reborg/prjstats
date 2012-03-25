@@ -15,4 +15,4 @@
    :password "admin"})
  
 (defentity projects)
-(defentity metrics)
+(defentity codemetrics)

@@ -2,6 +2,7 @@
   (:use ring.adapter.jetty
         ring.middleware.resource
         ring.middleware.reload
+        ring.middleware.stacktrace
         ring.middleware.file
         ring.middleware.session
         ring.middleware.session.cookie
@@ -14,6 +15,8 @@
 (def routes
   (app
     (wrap-params)
+    (wrap-reload)
+    (wrap-stacktrace)
     (wrap-file "resources/public")
     (wrap-session {:cookie-name "prjstats-session" :store (cookie-store)})
     ["login"] (delegate login)

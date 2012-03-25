@@ -20,10 +20,17 @@
         (response (login-template "Invalid username or password"))))))
 
 (defn admin "Admin console access" [req]
-  (let [username (:username (:session req))]
+  (let [username (:username (:session req))
+        params (:params req)]
     (if (nil? username)
       (redirect "/login")
-      (response (admin-template)))))
+      (do
+          (let [id (inc (count (select codemetrics))) 
+                project-id (:id (first (select projects (fields :id))))]
+            (do
+              (insert codemetrics (values (assoc params :id id :project project-id)))
+              (str "something to log here")))
+        (response (admin-template))))))
 
 (defn logout "Handle logout request" [req]
   (assoc (redirect "/") :session nil))
