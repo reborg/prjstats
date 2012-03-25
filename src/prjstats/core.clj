@@ -9,12 +9,14 @@
         ring.middleware.params
         ring.util.response
         net.cgrand.moustache
-        prjstats.controller))
+        prjstats.controller
+        prjstats.middleware))
  
 ;; Routes definition
 (def routes
   (app
     (wrap-params)
+    (wrap-request-logging)
     (wrap-reload)
     (wrap-stacktrace)
     (wrap-file "resources/public")
