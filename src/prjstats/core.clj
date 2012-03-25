@@ -3,6 +3,8 @@
         ring.middleware.resource
         ring.middleware.reload
         ring.middleware.file
+        ring.middleware.session
+        ring.middleware.session.cookie
         ring.middleware.params
         ring.util.response
         net.cgrand.moustache
@@ -13,7 +15,10 @@
   (app
     (wrap-params)
     (wrap-file "resources/public")
+    (wrap-session {:cookie-name "prjstats-session" :store (cookie-store)})
     ["login"] (delegate login)
+    ["admin"] (delegate admin)
+    ["logout"] (delegate logout)
     [""] (delegate index)
     [id] (delegate project id)))
  
