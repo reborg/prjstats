@@ -19,17 +19,29 @@
         (assoc (redirect "/admin") :session {:username (get params "username")})
         (response (login-template "Invalid username or password"))))))
 
+;; FIXME: really postgres no auto seq?
+(defn codemetrics-next-id []
+  (inc (count (select codemetrics))))
+
+;; FIXME: the project attribute should come from the form because a selection
+;; was made ahead about which project this metric is added to.
+(defn codemetrics-add [attributes]
+  (if-not (empty? attributes) 
+    (insert codemetrics 
+            (values 
+              (assoc attributes 
+                     :id (codemetrics-next-id) 
+                     :project 1
+                     "metric_value" (Double/parseDouble (attributes "metric_value")))))))
+
 (defn admin "Admin console access" [req]
   (let [username (:username (:session req))
         params (:params req)]
     (if (nil? username)
       (redirect "/login")
       (do
-          (let [id (inc (count (select codemetrics))) 
-                project-id (:id (first (select projects (fields :id))))]
-            (do
-              (insert codemetrics (values (assoc params :id id :project project-id)))
-              (str "something to log here")))
+        (locking System/out (println (str "params: " params)))
+        (codemetrics-add params)
         (response (admin-template))))))
 
 (defn logout "Handle logout request" [req]
