@@ -14,5 +14,6 @@
    :user "admin"
    :password "admin"})
  
-(defentity projects)
 (defentity codemetrics)
+(defentity projects
+  (has-many codemetrics))
