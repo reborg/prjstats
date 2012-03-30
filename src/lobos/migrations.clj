@@ -1,5 +1,5 @@
 ;; How to use me?
-;; (use 'lobos.core 'lobos.connectivity 'lobos.migration 'lobos.migrations)
+;; (use 'lobos.core 'lobos.connectivity 'lobos.migration 'lobos.migrations 'lobos.schema)
 ;; (open-global prjstatsdb)
 ;; (migrate)
 (ns lobos.migrations
@@ -18,15 +18,17 @@
    :password "admin"})
 
 (defn wipe []
-  (open-global prjstatsdb)
-  (reset))
+  (try 
+    (open-global prjstatsdb) 
+    (catch Exception ex (println (str "Connection already open:" ex))))
+  (migrate))
 
 (defmigration add-projects-table
   (up [] (create prjstatsdb
                  (table :projects 
                         (integer :id :primary-key )
                         (varchar :project_name 100 :unique ))))
-  (down [] (drop (table :projects ))))
+  (down [] (drop (table :projects ) :cascade)))
 
 (defmigration add-codemetrics-table
   (up [] (create prjstatsdb

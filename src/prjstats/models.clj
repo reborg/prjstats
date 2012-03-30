@@ -4,16 +4,15 @@
 ;; (delete projects (where {:id 1}))
 ;; (select projects)
 (ns prjstats.models
-  (:use korma.db
-        korma.core))
- 
+  (:use korma.db korma.core))
+
 (defdb prjstatsdb
   {:classname "org.postgresql.Driver"
    :subprotocol "postgresql"
    :subname "prjstats"
    :user "admin"
    :password "admin"})
- 
+
 (defentity codemetrics)
 (defentity projects
   (has-many codemetrics))

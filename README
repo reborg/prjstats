@@ -1,10 +1,25 @@
-# prjstats
+# PrjStats
 
-FIXME: write description
+Simple web interface to manage software project metrics and visualize trends over time. At the moment PrjStats does not analyze your project to produce metrics, it just stores metrics you enter and print pretty time series charts. Several kind of metrics already included:
+* Stories: number completed, unfinished, added during the iteration
+* Tasks: floating tasks, wihtout an overarching story
+* Bugs: fixed, created
+* Test: test coverage by build number
+* Static analisys: LOC, churn
+
+## TODO:
+- main page shows quick links to group of metrics for each project 4
+- project details for selected metric shows as table 8
+- data fixtures automation for acceptances 4
+- charts charts charts
+- migrate to sqlite dev and test 2
 
 ## Usage
 
-FIXME: write
+## Useful links
+* http://www.vijaykiran.com/2012/01/11/web-application-development-with-clojure-part-1
+* https://github.com/swannodette/enlive-tutorial
+* http://pupeno.com/2011/08/20/how-to-use-lobos-with-heroku/
 
 ## License
 
