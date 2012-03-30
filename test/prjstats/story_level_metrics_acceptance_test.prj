@@ -1,0 +1,16 @@
+(ns prjstats.story-level-metrics-acceptance-test
+  (:use midje.sweet)
+  (:use prjstats.controller)
+  (:use korma.db korma.core)
+  (:use [prjstats.models :only (projects)])
+  (:use [lobos.migrations :only (wipe)]))
+
+(defn load-story-level-metrics
+  "creates a project and related story level metrics" []
+  (insert projects (values {:id 1, :project_name "mps"})))
+
+(facts "story level metrics for specific project are shown")
+       ;;(wipe)
+       ;;(load-story-level-metrics))
+       ;; enter project 1 story level metrics
+       ;; expecting to see a div/row for each iteration recorded
