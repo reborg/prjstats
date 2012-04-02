@@ -18,9 +18,15 @@
    :password "admin"})
 
 (defn wipe []
+  "migrate can always happen, with or without db tables, so if they are not
+  there they are created. Drop instead fails if there are no tables (of course), 
+  this is why I migrate first to be sure. The last migrate is the definitive one.
+  At the end there should be an empty migrated up to date db."
   (try 
     (open-global prjstatsdb) 
-    (catch Exception ex (println (str "Connection already open:" ex))))
+    (catch Exception ex (println "Reusing connection" )))
+  (migrate)
+  (rollback)
   (migrate))
 
 (defmigration add-projects-table
