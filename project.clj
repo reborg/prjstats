@@ -7,7 +7,9 @@
                  [korma "0.2.1"]
                  [enlive "1.0.0"]
                  [postgresql "9.1-901.jdbc4"]
+                 [clj-time "0.3.7"]
                  [clj-yaml "0.3.1"]]
   :dev-dependencies [[midje "1.3.1"] 
-                     [lein-midje "1.0.8"]]
+                     [lein-midje "1.0.8"]
+                     [clj-factory "0.2.0"]]
   :main prjstats.core)

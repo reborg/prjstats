@@ -14,6 +14,11 @@ Simple web interface to manage software project metrics and visualize trends ove
 - charts charts charts
 - migrate to sqlite dev and test 2
 
+## LAST SESSION DUMP:
+- @prjstats stupid ns problem of core join on collections refering to something in karma core. Suspect I need to rename this NS and use them qualified.
+- @prjstats need a way to increment of 1 day a java sql date to make test data more realistic
+- @prjstats the accpt setup that created a project with related metrics can be abstracted into the factory file or NS
+
 ## Usage
 
 ## Useful links

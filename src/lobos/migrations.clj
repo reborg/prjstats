@@ -17,24 +17,19 @@
    :user "admin"
    :password "admin"})
 
-(defn wipe []
-  "migrate can always happen, with or without db tables, so if they are not
-  there they are created. Drop instead fails if there are no tables (of course), 
-  this is why I migrate first to be sure. The last migrate is the definitive one.
-  At the end there should be an empty migrated up to date db."
-  (try 
-    (open-global prjstatsdb) 
-    (catch Exception ex (println "Reusing connection" )))
-  (migrate)
-  (rollback)
-  (migrate))
+(def h2-settings
+  {:classname   "org.h2.Driver"
+   :subprotocol "h2:file"
+   :subname     (str (System/getProperty "user.dir") "/" "prjstats")
+   :user        "sa"
+   :password    "" })
 
 (defmigration add-projects-table
   (up [] (create prjstatsdb
                  (table :projects 
                         (integer :id :primary-key )
                         (varchar :project_name 100 :unique ))))
-  (down [] (drop (table :projects ) :cascade)))
+  (down [] (drop (table :projects )) (println "dropping table projects")))
 
 (defmigration add-codemetrics-table
   (up [] (create prjstatsdb
@@ -42,6 +37,23 @@
                         (integer :id :primary-key )
                         (varchar :metric_name 100)
                         (float :metric_value )
-                        (timestamp :generated (default (now)))
+                        (timestamp :generated)
                         (integer :project [:refer :projects :id] :not-null))))
-  (down [] (drop (table :codemetrics ))))
+  (down [] (drop (table :codemetrics )) (println "dropping table codemetrics")))
+
+(defn wipe-db []
+  "Couldn't make rollback/migrate to work properly at each test run.
+  only way found was to do the following manually"
+  (try 
+    (open-global prjstatsdb) 
+    (catch Exception ex (println "Reusing connection" )))
+  (try 
+    (drop (table :codemetrics ))
+    (catch Exception ex (println "Table codemetrics does not exist. No need to drop again." )))
+  (try 
+    (drop (table :projects) :cascade)
+    (catch Exception ex (println "Table projects does not exist. No need to drop again." )))
+  (try 
+    (drop (table :lobos_migrations))
+    (catch Exception ex (println "Table lobos_migrations does not exist. No need to drop again." )))
+  (nil? (migrate)))
