@@ -11,5 +11,6 @@
                  [clj-yaml "0.3.1"]]
   :dev-dependencies [[midje "1.3.1"] 
                      [lein-midje "1.0.8"]
+                     [org.clojure/tools.trace "0.7.3"]
                      [clj-factory "0.2.0"]]
   :main prjstats.core)

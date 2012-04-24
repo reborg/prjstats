@@ -7,14 +7,31 @@
   (:use [clj-factory.core :only [factory]])
   (:use [lobos.migrations :only [wipe-db]]))
 
-(defn load-story-level-metrics
-  "creates a project and related story level metrics" []
+(defn give-me-a-project
+  "generate a sample project by incrementing the current id" []
+  (insert projects (values (factory :project))))
+
+(defn give-me-a-project-with-metrics
+  "creates a project and related metrics" []
   (insert codemetrics 
           (values (conj 
                     (factory :codemetrics) 
-                    {:project (:id (insert projects (values (factory :project))))}))))
+                    {:project (:id (give-me-a-project))}))))
 
-(facts "story level metrics for specific project are shown"
+(defn give-me-metrics-for-project
+  "creates a sample set of metrics for a project" [project]
+  (insert codemetrics 
+          (values (conj 
+                    (factory :codemetrics) 
+                    {:project (:id project)}))))
+
+(facts "it shows the number of stories done during the last iteration"
        (wipe-db)
-       (load-story-level-metrics)
-       (count (re-seq #"project_name" (join (:body (index "req"))))) => 1)
+       (let [a-project (give-me-a-project)
+             some-metrics (give-me-metrics-for-project a-project)]
+        (re-seq #"story_count" (clojure.string/join (:body (project "/" (str (:id a-project)))))) => (:metric_value some-metrics)))
+
+
+;;(facts "details for a specific project"
+;;  "all metrics are on the page for the specific project"
+;;  (count (re-seq #"Metrics for" (join (:body (project "/" "1"))))) => 1)
