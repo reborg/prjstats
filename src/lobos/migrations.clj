@@ -38,7 +38,7 @@
                         (varchar :metric_name 100)
                         (float :metric_value )
                         (timestamp :generated)
-                        (integer :project [:refer :projects :id] :not-null))))
+                        (integer :project_id [:refer :projects :id] :not-null))))
   (down [] (drop (table :codemetrics )) (println "dropping table codemetrics")))
 
 (defn wipe-db []

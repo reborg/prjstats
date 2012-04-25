@@ -35,21 +35,21 @@
   (insert codemetrics 
           (values (conj 
                     (factory :codemetrics) 
-                    {:project (:id (give-me-a-project))}))))
+                    {:project_id (:id (give-me-a-project))}))))
 
 (defn give-me-a-project-with-metric [name value]
   "creates a project with a specific metric" []
   (insert codemetrics 
           (values (conj 
                     (conj 
-                      (factory :generic-metric 4) 
+                      (factory :generic-metric) 
                       {:metric_name name :metric_value value})
-                    {:project (:id (give-me-a-project))}))))
+                    {:project_id (:id (give-me-a-project))}))))
 
 (defn give-me-metrics-for-project
   "creates a sample set of metrics for a project" [project]
   (insert codemetrics 
           (values (conj 
                     (factory :codemetrics) 
-                    {:project (:id project)}))))
+                    {:project_id (:id project)}))))
 

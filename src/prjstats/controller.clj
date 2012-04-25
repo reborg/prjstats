@@ -9,7 +9,7 @@
 
 (defn project "Show a single project details" [req project-id]
   (let [project-id-as-integer (Integer/parseInt project-id)]
-    (response (project-details (first (select projects (where {:id project-id-as-integer})))))))
+    (response (project-details (first (select projects (with codemetrics) (where {:id project-id-as-integer})))))))
 
 (defn login "Handle login" [req]
   (let [params (:params req)]
