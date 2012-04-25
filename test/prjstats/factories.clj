@@ -22,6 +22,10 @@
    :metric_value (fseq :metric_value)
    :generated (fseq :timestamp)})
 
+(deffactory :generic-metric
+  {:id (fseq :codemetrics_id)
+   :generated (fseq :timestamp)})
+
 (defn give-me-a-project
   "generate a sample project by incrementing the current id" []
   (insert projects (values (factory :project))))
@@ -31,6 +35,15 @@
   (insert codemetrics 
           (values (conj 
                     (factory :codemetrics) 
+                    {:project (:id (give-me-a-project))}))))
+
+(defn give-me-a-project-with-metric [name value]
+  "creates a project with a specific metric" []
+  (insert codemetrics 
+          (values (conj 
+                    (conj 
+                      (factory :generic-metric 4) 
+                      {:metric_name name :metric_value value})
                     {:project (:id (give-me-a-project))}))))
 
 (defn give-me-metrics-for-project
