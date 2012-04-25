@@ -14,7 +14,7 @@
 
 (deftemplate project-details "project.html" [project]
   [:title] (content "PrjStats - The metrics aggregator")
-  [:div.project] (content (str "Metrics for " (project :project_name))))
+  [:span.project_name] (content (str "Metrics for " (project :project_name))))
 
 (deftemplate login-template "login.html" [& msg]
   [:div#error] (if (nil? msg)
