@@ -7,5 +7,12 @@
 (ns prjstats.models
   (:use korma.db korma.core))
 
+(defdb prjstatsdb
+  {:classname "org.postgresql.Driver"
+   :subprotocol "postgresql"
+   :subname "prjstats"
+   :user "admin"
+   :password "admin"})
+
 (defentity codemetrics)
 (defentity projects (has-many codemetrics))
