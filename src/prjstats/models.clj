@@ -15,4 +15,4 @@
    :password "admin"})
 
 (defentity codemetrics)
-(defentity projects (has-many codemetrics))
+(defentity projects (has-many codemetrics {:fk "project_id"}))
